@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lipshade | Find Your Perfect Lipstick Shade</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Premium Cosmetics</p>
+          <h1>Lipshade 💄</h1>
+          <p class="hero-subtitle">Find your perfect lipstick shade</p>
+          <p class="hero-text">
+            Discover our curated collection of premium lipsticks. Filter by undertone, finish, and color family to find your ideal shade.
+          </p>
+        </div>
+
+        <div class="hero-panel">
+          <form id="searchForm" class="search-form">
+            <label class="sr-only" for="searchInput">Search by brand or shade</label>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search by brand or shade name..."
+              autocomplete="off"
+            />
+            <button type="submit" class="search-button">Search</button>
+          </form>
+
+          <div class="hero-stats">
+            <article class="stat-card">
+              <span id="resultCount" class="stat-value">0</span>
+              <span class="stat-label">Shades Available</span>
+            </article>
+            <article class="stat-card">
+              <span id="activeMode" class="stat-value stat-mode">All Products</span>
+              <span class="stat-label">Current View</span>
+            </article>
+          </div>
+        </div>
+      </header>
+
+      <main class="main-layout">
+        <section class="control-panel">
+          <div class="panel-header">
+            <div>
+              <p class="eyebrow">Personalize</p>
+              <h2>Filter Your Match</h2>
+            </div>
+            <button id="clearAllBtn" class="reset-button" type="button">Reset All</button>
+          </div>
+
+          <div class="control-grid">
+            <div class="field">
+              <label for="colorFilter">Color Family</label>
+              <select id="colorFilter">
+                <option value="">All colors</option>
+                <option value="red">Red</option>
+                <option value="pink">Pink</option>
+                <option value="nude">Nude</option>
+                <option value="coral">Coral</option>
+                <option value="berry">Berry</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="finishFilter">Finish</label>
+              <select id="finishFilter">
+                <option value="">All finishes</option>
+                <option value="matte">Matte</option>
+                <option value="gloss">Gloss</option>
+                <option value="satin">Satin</option>
+                <option value="cream">Cream</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="brandFilter">Brand</label>
+              <select id="brandFilter">
+                <option value="">All brands</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="undertone-panel">
+            <div>
+              <p class="eyebrow">Your Undertone</p>
+              <h3>Choose Your Match</h3>
+            </div>
+
+            <div class="undertone-buttons">
+              <button class="tone-button" type="button" data-undertone="warm">
+                <span class="tone-dot warm"></span>
+                Warm
+              </button>
+              <button class="tone-button" type="button" data-undertone="cool">
+                <span class="tone-dot cool"></span>
+                Cool
+              </button>
+              <button class="tone-button" type="button" data-undertone="neutral">
+                <span class="tone-dot neutral"></span>
+                Neutral
+              </button>
+            </div>
+          </div>
+
+          <div id="activeTags" class="active-tags"></div>
+        </section>
+
+        <section class="catalog-panel">
+          <div class="catalog-header">
+            <div>
+              <p class="eyebrow">Shade Library</p>
+              <h2>Browse every Lipshade pick</h2>
+              <p id="statusMessage" class="status-message">Loading lipsticks...</p>
+            </div>
+
+            <div class="legend">
+              <span><i class="legend-dot warm"></i> Warm</span>
+              <span><i class="legend-dot cool"></i> Cool</span>
+              <span><i class="legend-dot neutral"></i> Neutral</span>
+            </div>
+          </div>
+
+          <div id="feedback" class="feedback" hidden></div>
+          <div id="productsGrid" class="products-grid" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="productModal" class="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <button id="modalCloseBtn" class="modal-close" type="button" aria-label="Close product details">Close</button>
+        <div id="modalContent" class="modal-content"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

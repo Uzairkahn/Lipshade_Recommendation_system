@@ -1,0 +1,17 @@
+[Startup] Data file path: D:\lipshade\database\lipsticks.json
+[Startup] Loaded 80 lipstick product(s) at startup.
+[Startup] Lipshade backend is running on http://localhost:3000
+[2026-03-25T14:34:23.153Z] GET /
+[Route] Health check successful.
+[2026-03-25T14:34:52.920Z] GET /api/lipsticks
+[Route] Returning 80 lipstick product(s).
+[2026-03-25T14:34:53.395Z] GET /api/lipsticks
+[Route] Returning 80 lipstick product(s).
+[2026-03-25T14:35:46.527Z] GET /api/lipsticks
+[Route] Returning 80 lipstick product(s).
+[2026-03-25T14:35:54.261Z] GET /api/filter?finish=matte
+[Route] Filter {"finish":"matte"} returned 20 result(s).
+[2026-03-25T14:36:05.705Z] GET /api/filter?finish=gloss
+[Route] Filter {"finish":"gloss"} returned 20 result(s).
+[2026-03-25T14:36:11.435Z] GET /api/filter?finish=satin
+[Route] Filter {"finish":"satin"} returned 20 result(s).
