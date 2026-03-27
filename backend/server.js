@@ -6,10 +6,38 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Build the correct path to the database file
+// Robust database file path resolution for multiple deployment scenarios
 console.log('[Startup] DIRNAME:', __dirname);
-const DATA_FILE_PATH = path.join(__dirname, '../database/lipsticks.json');
-console.log('[Startup] DATA_FILE_PATH:', DATA_FILE_PATH);
+
+// Try multiple possible paths
+const possiblePaths = [
+  path.join(__dirname, '../database/lipsticks.json'), // When running from backend folder
+  path.join(__dirname, './database/lipsticks.json'),  // When running from root folder
+];
+
+console.log('[Startup] Attempting to locate database at:');
+possiblePaths.forEach((p, idx) => {
+  console.log(`  [${idx + 1}] ${p}`);
+});
+
+// Find the first path that exists
+let DATA_FILE_PATH = null;
+for (const filePath of possiblePaths) {
+  if (fs.existsSync(filePath)) {
+    DATA_FILE_PATH = filePath;
+    console.log('[Startup] DATABASE FOUND at:', DATA_FILE_PATH);
+    break;
+  }
+}
+
+if (!DATA_FILE_PATH) {
+  console.error('[Startup] WARNING: Database file not found at any expected location!');
+  console.error('[Startup] Checked paths:');
+  possiblePaths.forEach((p) => {
+    console.error(`  - ${p}`);
+  });
+  DATA_FILE_PATH = possiblePaths[0]; // Set to first path for error messages
+}
 
 const VALID_UNDERTONES = new Set(['warm', 'cool', 'neutral']);
 
