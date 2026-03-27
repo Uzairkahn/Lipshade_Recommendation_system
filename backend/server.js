@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Database file path resolution for multiple deployment environments
 console.log('[Startup] DIRNAME:', __dirname);
