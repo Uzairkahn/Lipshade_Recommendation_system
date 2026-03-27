@@ -5,7 +5,12 @@ const path = require('path');
 
 const app = express();
 const PORT = 3000;
-const DATA_FILE_PATH = path.resolve(__dirname, '../database/lipsticks.json');
+
+// Build the correct path to the database file
+console.log('[Startup] DIRNAME:', __dirname);
+const DATA_FILE_PATH = path.join(__dirname, '../database/lipsticks.json');
+console.log('[Startup] DATA_FILE_PATH:', DATA_FILE_PATH);
+
 const VALID_UNDERTONES = new Set(['warm', 'cool', 'neutral']);
 
 app.use(cors());
@@ -57,28 +62,37 @@ function getUndertoneValues(product) {
 
 function loadLipsticksData() {
   try {
+    // Check if file exists
     if (!fs.existsSync(DATA_FILE_PATH)) {
-      console.error(`[Data] Lipstick data file not found at ${DATA_FILE_PATH}`);
+      console.error(`[Data] ERROR: File not found at: ${DATA_FILE_PATH}`);
+      console.error(`[Data] Please ensure database/lipsticks.json exists relative to backend folder.`);
       return [];
     }
 
+    // Read file
     const fileContents = fs.readFileSync(DATA_FILE_PATH, 'utf8').trim();
 
+    // Check if file is empty
     if (!fileContents) {
-      console.warn(`[Data] Lipstick data file is empty: ${DATA_FILE_PATH}`);
+      console.warn(`[Data] WARNING: Lipstick data file is empty: ${DATA_FILE_PATH}`);
       return [];
     }
 
+    // Parse JSON
     const parsedData = JSON.parse(fileContents);
 
+    // Validate data format
     if (!Array.isArray(parsedData)) {
-      console.error('[Data] Invalid lipstick data format. Expected a JSON array.');
+      console.error('[Data] ERROR: Invalid lipstick data format. Expected a JSON array.');
       return [];
     }
 
+    console.log(`[Data] Successfully loaded ${parsedData.length} lipstick(s) from: ${DATA_FILE_PATH}`);
     return parsedData;
   } catch (error) {
-    console.error(`[Data] Failed to load lipstick data: ${error.message}`);
+    console.error(`[Data] CRITICAL ERROR: Failed to load lipstick data`);
+    console.error(`[Data] Error message: ${error.message}`);
+    console.error(`[Data] Stack: ${error.stack}`);
     return [];
   }
 }
